@@ -17,38 +17,19 @@ os.system('cls')
 
 CSV_FILE: str = "mobile_app_interactions_expanded.csv"
 
-user_df: DataFrame = read_csv(CSV_FILE)
-
-# initializing the visualizer
-dataVisualizer: DataVisualizer = DataVisualizer(user_df, save_dir="visual_refs")
-
-dataVisualizer.plot_class_distribution()
-dataVisualizer.plot_missing_values()
-dataVisualizer.plot_numeric_histograms()
-dataVisualizer.plot_correlation_heatmap()
-
-dataVisualizer.plot_boxplots_by_class([
-    "total_sessions",
-    "total_events",
-    "active_days",
-    "avg_session_duration"
-])
-
-dataVisualizer.plot_scatter("total_events", "avg_session_duration")
-dataVisualizer.plot_pairplot([
-    "total_sessions",
-    "total_events",
-    "avg_session_duration",
-    "avg_battery_level"
-])
-
 # Building useful features from the dataset
 dataset: DataFrame = UserFeatureBuilder(fileName=CSV_FILE).__build_user_level_dataset__()
 
 # printing the head
 print(dataset.head())
 
+# initializing the visualizer
+dataVisualizer: DataVisualizer = DataVisualizer(dataset, save_dir="visual_refs")
 
+dataVisualizer.plot_class_distribution()
+dataVisualizer.plot_missing_values()
+dataVisualizer.plot_numeric_histograms()
+dataVisualizer.plot_correlation_heatmap()
 
 # splitting the dataset
 

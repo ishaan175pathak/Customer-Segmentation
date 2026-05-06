@@ -13,7 +13,7 @@ class DataVisualizer:
     def __init__(
         self,
         df: pd.DataFrame,
-        target_col: str = "is_subscribed",
+        target_col: str = "subscription_status",
         save_dir: Optional[str] = None
     ):
         self.df = df.copy()
@@ -41,16 +41,14 @@ class DataVisualizer:
 
             value_str = str(value).strip().lower()
 
-            if value_str in {"true", "1", "yes", "y"}:
+            if value_str in {"true", "1", "yes", "y", "1.0"}:
                 return 1
-            if value_str in {"false", "0", "no", "n"}:
+            if value_str in {"false", "0", "no", "n", "0.0"}:
                 return 0
 
             return np.nan
 
         self.df[self.target_col] = self.df[self.target_col].apply(__normalize_target_val)
-
-        print(self.df[self.target_col].value_counts())
 
         ax = sns.countplot(y=self.target_col, data=self.df)
         ax.set_title("Class Distribution")
@@ -75,7 +73,7 @@ class DataVisualizer:
 
     def plot_numeric_histograms(self, columns: Optional[Sequence[str]] = None, bins: int = 20):
         if columns is None:
-            columns = self.df.select_dtypes(include=[np.number]).columns.tolist()
+            columns = self.df.select_dtypes(include=[np.int64, np.float64]).columns.tolist()
 
         columns = [col for col in columns if col in self.df.columns and col != self.target_col]
 
@@ -97,7 +95,7 @@ class DataVisualizer:
         self._save_or_show("numeric_histograms.png")
 
     def plot_correlation_heatmap(self):
-        numeric_df = self.df.select_dtypes(include=[np.number])
+        numeric_df = self.df.select_dtypes(include=[np.int64, np.float64])
         if numeric_df.shape[1] < 2:
             print("Not enough numeric columns for correlation heatmap.")
             return
@@ -153,7 +151,7 @@ class DataVisualizer:
 
     def plot_pairplot(self, features: Optional[Sequence[str]] = None, sample_size: int = 500):
         if features is None:
-            features = self.df.select_dtypes(include=[np.number]).columns.tolist()
+            features = self.df.select_dtypes(include=[np.int64, np.float64]).columns.tolist()
 
         features = [col for col in features if col in self.df.columns and col != self.target_col]
 

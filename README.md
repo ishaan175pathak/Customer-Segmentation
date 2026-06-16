@@ -124,7 +124,7 @@ Visualization of results:
 
 ## 📦 Project Structure
 
-'''
+```
 project/
     │
     ├── venv/
@@ -140,7 +140,7 @@ project/
     ├── requirements.txt
     ├── visual_refs/
     └── README.md
-'''
+```
 
 ---
 
@@ -158,15 +158,15 @@ project/
 
 1. Clone the repository:
 
-'git clone <your-repo-link>'
+`git clone <your-repo-link>`
 
 2. Install dependencies:
 
-'pip install -r requirements.txt'
+`pip install -r requirements.txt`
 
 3. Run the main script:
 
-'python main.py'
+`python main.py`
 
 ---
 

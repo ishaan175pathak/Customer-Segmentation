@@ -20,8 +20,11 @@ CSV_FILE: str = "mobile_app_interactions_expanded.csv"
 # Building useful features from the dataset
 dataset: DataFrame = UserFeatureBuilder(fileName=CSV_FILE).__build_user_level_dataset__()
 
-# printing the head
+# printing the head and information
+
 print(dataset.head())
+print(dataset.info())
+print(dataset.describe())
 
 # initializing the visualizer
 dataVisualizer: DataVisualizer = DataVisualizer(dataset, save_dir="visual_refs")

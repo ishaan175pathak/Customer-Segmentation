@@ -187,8 +187,6 @@ project/
 ---
 
 ## 👨‍💻 Author
-Ishaan Pathak  
-Master’s in Computer Science  
-Lawrence Technological University  
+- Ishaan Pathak  
 
 ---
